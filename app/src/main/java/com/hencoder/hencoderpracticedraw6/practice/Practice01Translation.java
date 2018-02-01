@@ -21,6 +21,9 @@ import static com.hencoder.hencoderpracticedraw6.Utils.dpToPixel;
 public class Practice01Translation extends RelativeLayout {
     Button animateBt;
     ImageView imageView;
+    private int  index;
+    private int  translationCount = Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP ? 6:4;
+
 
     public Practice01Translation(Context context) {
         super(context);
@@ -34,6 +37,7 @@ public class Practice01Translation extends RelativeLayout {
         super(context, attrs, defStyleAttr);
     }
 
+
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -45,10 +49,39 @@ public class Practice01Translation extends RelativeLayout {
             imageView.setOutlineProvider(new MusicOutlineProvider());
         }
 
+
         animateBt.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
                 // TODO 在这里处理点击事件，通过 View.animate().translationX/Y/Z() 来让 View 平移
+                switch (index){
+                    case 0:
+                        imageView.animate().translationXBy(dpToPixel(100));
+                       break;
+                    case 1:
+                        imageView.animate().translationXBy(dpToPixel(-100));
+                        break;
+                    case 2:
+                        imageView.animate().translationYBy(dpToPixel(100));
+                        break;
+                    case 3:
+                        imageView.animate().translationYBy(dpToPixel(-100));
+                        break;
+                    case 4:
+                        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
+                            imageView.animate().translationZBy(20);
+                        }
+                        break;
+                    case 5:
+                        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
+                            imageView.animate().translationZBy(-20);
+                        }
+                        break;
+                }
+                index++;
+                if (index == translationCount){
+                    index=0;
+                }
             }
         });
     }
