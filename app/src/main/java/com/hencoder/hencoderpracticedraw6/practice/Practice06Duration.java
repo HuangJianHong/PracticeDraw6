@@ -11,6 +11,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.hencoder.hencoderpracticedraw6.R;
+import com.hencoder.hencoderpracticedraw6.Utils;
 
 public class Practice06Duration extends LinearLayout {
     SeekBar durationSb;
@@ -19,6 +20,7 @@ public class Practice06Duration extends LinearLayout {
     ImageView imageView;
 
     int duration = 300;
+    private boolean translation;
 
     public Practice06Duration(Context context) {
         super(context);
@@ -61,10 +63,18 @@ public class Practice06Duration extends LinearLayout {
 
         animateBt = (Button) findViewById(R.id.animateBt);
         imageView = (ImageView) findViewById(R.id.imageView);
+        translation = true;
         animateBt.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO 在这里处理点击事件，执行动画。记得使用 `setDuration(duration)` 来设置动画的时长。
+                int progress = durationSb.getProgress();
+                if (translation){
+                    imageView.animate().translationX(Utils.dpToPixel(100)).setDuration(progress * 300);
+                }else {
+                    imageView.animate().translationX(0).setDuration(progress *300);
+                }
+                translation = !translation;
             }
         });
     }
