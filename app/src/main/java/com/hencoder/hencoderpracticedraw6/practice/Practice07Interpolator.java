@@ -8,6 +8,7 @@ import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v4.view.animation.PathInterpolatorCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
@@ -89,9 +90,11 @@ public class Practice07Interpolator extends LinearLayout {
                         .withEndAction(new Runnable() {
                             @Override
                             public void run() {
+                                Log.i("WithEndAction()", "Current_Thread： "+ Thread.currentThread().getName() );
                                 imageView.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
+                                        Log.i("PostDelayed: ", "Current_Thread= ： "+ Thread.currentThread().getName());
                                         imageView.setTranslationX(0);
                                     }
                                 }, 500);
