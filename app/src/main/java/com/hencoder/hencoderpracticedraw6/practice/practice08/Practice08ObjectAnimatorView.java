@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import static com.hencoder.hencoderpracticedraw6.Utils.dpToPixel;
@@ -19,6 +20,15 @@ public class Practice08ObjectAnimatorView extends View {
 
     // TODO 为 progress 添加 getter 和 setter 方法（setter 方法记得加 invalidate()）
     float progress = 0;
+
+    public float getProgress() {
+        return progress;
+    }
+
+    public void setProgress(float progress) {     //ObjectAnimator属性动画使用
+        this.progress = progress;
+        invalidate();
+    }
 
     public Practice08ObjectAnimatorView(Context context) {
         super(context);
@@ -49,7 +59,10 @@ public class Practice08ObjectAnimatorView extends View {
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStrokeWidth(dpToPixel(15));
         arcRectF.set(centerX - radius, centerY - radius, centerX + radius, centerY + radius);
-        canvas.drawArc(arcRectF, 135, progress * 2.7f, false, paint);
+        Log.i(Practice08ObjectAnimatorView.class.getSimpleName(), "progress: = " + progress);
+        float per = progress/100 *360;
+        canvas.drawArc(arcRectF, 135, per, false, paint);
+//        canvas.drawArc(arcRectF, 135, progress * 2.7f, false, paint);
 
         paint.setColor(Color.WHITE);
         paint.setStyle(Paint.Style.FILL);
